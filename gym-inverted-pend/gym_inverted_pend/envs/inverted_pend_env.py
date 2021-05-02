@@ -64,7 +64,7 @@ class InvertedPend(gym.Env):
 
         # Angle at which to fail the episode
         self.theta_threshold_radians = 12 * 2 * math.pi / 360
-        self.x_max = 5.0
+        self.x_max = 10.0
 
         # Angle limit set to 2 * theta_threshold_radians so failing observation
         # is still within bounds.
