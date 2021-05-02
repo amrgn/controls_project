@@ -1,0 +1,1 @@
+from gym_inverted_pend.envs.inverted_pend_env import InvertedPend
