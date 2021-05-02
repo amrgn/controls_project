@@ -17,11 +17,11 @@ def pendPID(y, t, K1, K2, K3, L = 0.5, g = 9.8):
     return dydt
 
 K1 = 50
-K2 = 3
-K3 = 46
+K2 = 2
+K3 = 30
 
 y0 = [ np.pi * 0.45, 0]
-y0PID = [ 0, np.pi * 0.30, 0]
+y0PID = [ 0,  np.pi * 0.45, 0]
 
 t = np.linspace(0,10,10000)
 
@@ -49,9 +49,12 @@ def PlotPID():
 
     velocity = cumtrapz(acceleration, dx = 0.0001)
     pos = cumtrapz(velocity, dx = 1/1000)
-    print(acceleration)
-    print(velocity)
-    plt.plot(t, acceleration, 'b', label='acceleration')
+    print(solPID.T[1])
+    plt.plot(t[:9998], acceleration[:9998], 'b', label='acceleration')
+    plt.plot(t[:9998], velocity[:9998], 'g', label = 'velocity')
+    plt.plot(t[:9998], pos, 'r', label='position')
+    plt.legend()
+
     plt.show()
     plt.figure()
     env = gym.make('inverted-pend-v0')
@@ -92,3 +95,5 @@ def PlotPD():
         #print("i")
     env.close()
     env.render()
+
+#PlotPD()

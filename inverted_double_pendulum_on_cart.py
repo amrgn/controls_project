@@ -3,6 +3,9 @@ from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
+import gym
+import gym_inverted_pend
+
 g = 9.8
 R = 5
 
@@ -86,6 +89,10 @@ plt.plot(t, sol.T[1], 'm', label=r'$\omega_1(t)$')
 plt.plot(t, sol.T[2], 'g', label=r'$\theta_2(t)$')
 plt.plot(t, sol.T[3], 'r', label=r'$\omega_2(t)$')
 
+#plt.plot(t, pos, 'b', label = 'position(t)')
+#plt.plot(t, accel, 'r', label = 'accel(t)')
+#plt.plot(t, vel, 'g', label = 'velocity(t)')
+
 plt.legend(loc='best')
 
 plt.xlabel('t')
@@ -96,4 +103,14 @@ plt.grid()
 
 plt.show()
 
-
+env = gym.make('double-inverted-pend-v0')
+env.reset()
+for i in range(len(sol.T[0])):
+    env.render()
+    #time.sleep(0.1)
+    env.set_theta(sol.T[0][i])
+    env.set_theta2(sol.T[2][i])
+    env.set_x(pos[i])
+    #print("i")
+env.close()
+env.render()

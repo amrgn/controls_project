@@ -1,1 +1,2 @@
 from gym_inverted_pend.envs.inverted_pend_env import InvertedPend
+from gym_inverted_pend.envs.double_inverted_pend_env import DoubleInvertedPend
