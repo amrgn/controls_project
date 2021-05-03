@@ -63,14 +63,14 @@ K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
 # note that the double pendulum is especially sensitive to initial conditions,
 # and the nonlinear effects can take over fast, causing a bad control model.
 
-y0 = [0.1, 0, 0.1, 0.0]
+y0 = [0.1, 0, 0.3, 0.0]
 
-t = np.linspace(0,15,100000)
+t = np.linspace(0,15,10000)
 
 sol = odeint(double_pend, y0, t, args=(K1,K2,K3,K4,g,R))
 
 # integrate acceleration to find velocity and position of cart
-accel = K1 * sol.T[0] + K2 * sol.T[1] + K3 * sol.T[2] + K4 * sol.T[3]
+accel = -(K1 * sol.T[0] + K2 * sol.T[1] + K3 * sol.T[2] + K4 * sol.T[3])
 vel = np.zeros(len(t))
 pos = np.zeros(len(t))
 
