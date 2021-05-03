@@ -20,7 +20,7 @@ K1 = 50
 K2 = 2
 K3 = 30
 
-y0 = [ np.pi * 0.45, 0]
+y0 = [ np.pi * 0.3, 0]
 y0PID = [ 0,  np.pi * 0.45, 0]
 
 t = np.linspace(0,10,10000)
@@ -59,14 +59,17 @@ def PlotPID():
     plt.figure()
     env = gym.make('inverted-pend-v0')
     env.reset()
-    for i in range(len(solPID.T[0])):
+    t0 = time.time()
+    for i in range(int(len(pos))):
         env.render()
-        #time.sleep(0.1)
+        
         env.set_theta(solPID.T[1][i])
         env.set_x(pos[i])
         #print("i")
+    t1 = time.time()
+    print(t1-t0)
     env.close()
-    env.render()
+    
     
 PlotPID()
 
@@ -87,11 +90,11 @@ def PlotPD():
 
     env = gym.make('inverted-pend-v0')
     env.reset()
-    for i in range(len(sol.T[0])):
+    for i in range(int(len(pos)/5.7)):
         env.render()
         #time.sleep(0.1)
-        env.set_theta(sol.T[0][i])
-        env.set_x(pos[i])
+        env.set_theta(sol.T[0][int(5.7*i)])
+        env.set_x(pos[int(5.7*i)])
         #print("i")
     env.close()
     env.render()

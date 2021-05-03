@@ -63,7 +63,7 @@ K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
 # note that the double pendulum is especially sensitive to initial conditions,
 # and the nonlinear effects can take over fast, causing a bad control model.
 
-y0 = [0.1, 0, 0.1, 0.0]
+y0 = [-0.1, 0, 0.3, 0.0]
 
 t = np.linspace(0,15,100000)
 
@@ -89,9 +89,22 @@ plt.plot(t, sol.T[1], 'm', label=r'$\omega_1(t)$')
 plt.plot(t, sol.T[2], 'g', label=r'$\theta_2(t)$')
 plt.plot(t, sol.T[3], 'r', label=r'$\omega_2(t)$')
 
-#plt.plot(t, pos, 'b', label = 'position(t)')
-#plt.plot(t, accel, 'r', label = 'accel(t)')
-#plt.plot(t, vel, 'g', label = 'velocity(t)')
+plt.legend(loc='best')
+
+plt.xlabel('t')
+
+plt.ylabel('rad (or rad/s)')
+
+plt.grid()
+
+plt.show()
+
+
+
+
+plt.plot(t, pos, 'b', label = 'position(t)')
+plt.plot(t, accel, 'r', label = 'accel(t)')
+plt.plot(t, vel, 'g', label = 'velocity(t)')
 
 plt.legend(loc='best')
 
