@@ -63,7 +63,7 @@ K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
 # note that the double pendulum is especially sensitive to initial conditions,
 # and the nonlinear effects can take over fast, causing a bad control model.
 
-y0 = [0.1, 0, 0.3, 0.0]
+y0 = [-0.15, 0, 0.1, 0.2]
 
 t = np.linspace(0,15,10000)
 

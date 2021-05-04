@@ -87,7 +87,12 @@ class InvertedPend(gym.Env):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
 
-    
+    def set_x_max(self, x_max):
+        self.x_max = x_max
+
+    def set_length(self, length):
+        self.length = length
+
     def set_theta(self, theta):
         self.state[2] = theta
         
@@ -154,8 +159,8 @@ class InvertedPend(gym.Env):
         return np.array(self.state)
 
     def render(self, mode='human'):
-        screen_width = 600
-        screen_height = 400
+        screen_width = 1800
+        screen_height = 1200
 
         world_width = self.x_max * 2
         scale = screen_width/world_width
