@@ -64,10 +64,14 @@ K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
 # and the nonlinear effects can take over fast, causing a bad control model.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 y0 = [-0.1, 0, 0.3, 0.0]
 =======
 y0 = [0.1, 0, 0.3, 0.0]
 >>>>>>> 2a0d7ac6140ba4c23adb9ea5a30d20ab7cf0b523
+=======
+y0 = [-0.15, 0, 0.1, 0.2]
+>>>>>>> 0102c3821ed8f1852c2314fa6e1c86e7f02e881d
 
 t = np.linspace(0,15,10000)
 
