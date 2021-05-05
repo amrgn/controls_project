@@ -116,10 +116,33 @@ axs[1].grid()
 
 plt.show()
 
+def save_frames_as_gif(frames, path='./', filename='gym.gif', xmax= 5):
+
+    #Mess with this to change frame size
+    fig = plt.figure(figsize=(frames[0].shape[1] / 72.0, frames[0].shape[0] / 72.0), dpi=72)
+
+    patch = plt.imshow(frames[0])
+    plt.axis("off")
+    #plt.xticks(np.linspace(-xmax, xmax, 600))
+    #x.set(xlim = (-xmax,xmax), ylim = None )
+
+    def animate(i):
+        patch.set_data(frames[18*i])
+
+    anim = animation.FuncAnimation(plt.gcf(), animate, frames = int(len(frames)/18), interval=1)
+    
+    #print(1/dt)
+
+    anim.save(path + filename, writer='Pillow', fps=1000)
+
+
+
+
 env = gym.make('double-inverted-pend-v0')
 env.reset()
+frames =[]
 for i in range(len(sol.T[0])):
-    env.render()
+    frames.append(env.render(mode="rgb_array"))
     #time.sleep(0.1)
     env.set_theta(sol.T[0][i])
     env.set_theta2(sol.T[2][i])
@@ -127,3 +150,5 @@ for i in range(len(sol.T[0])):
     #print("i")
 env.close()
 env.render()
+
+#save_frames_as_gif(frames, filename="PD-K1<G.gif")
