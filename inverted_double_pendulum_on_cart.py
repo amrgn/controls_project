@@ -92,14 +92,6 @@ for idx in range(1, len(t)):
 
 
 
-<<<<<<< HEAD
-
-
-
-
-
-=======
->>>>>>> a05b020a0404ec84af9d068de5a3e771ccb9957a
 fig, axs = plt.subplots(2)
 
 axs[0].plot(t, sol.T[0], 'b', label=r'$\theta_1(t)$')
