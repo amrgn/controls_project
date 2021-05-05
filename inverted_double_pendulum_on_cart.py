@@ -95,24 +95,11 @@ for idx in range(1, len(t)):
 
 
 
-<<<<<<< HEAD
-plt.legend(loc='best')
-
-plt.xlabel('t')
-
-plt.ylabel('rad (or rad/s)')
-
-plt.grid()
-
-plt.show()
 
 
 
 
-plt.plot(t, pos, 'b', label = 'position(t)')
-plt.plot(t, accel, 'r', label = 'accel(t)')
-plt.plot(t, vel, 'g', label = 'velocity(t)')
-=======
+
 fig, axs = plt.subplots(2)
 
 axs[0].plot(t, sol.T[0], 'b', label=r'$\theta_1(t)$')
@@ -120,7 +107,6 @@ axs[0].plot(t, sol.T[1], 'm', label=r'$\omega_1(t)$')
 
 axs[0].plot(t, sol.T[2], 'g', label=r'$\theta_2(t)$')
 axs[0].plot(t, sol.T[3], 'r', label=r'$\omega_2(t)$')
->>>>>>> d0d5a79d19a9e5af08c3fb918091e9a5d12bf5e2
 
 axs[0].legend(loc='best')
 axs[0].set_title(r'$\theta$ and $\omega$ as functions of time')

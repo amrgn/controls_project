@@ -26,13 +26,13 @@ def pendPID(y, t, K1, K2, K3, L = 0.5, g = 9.8):
     return dydt
 
 K1 = 50
-K2 = 5
-K3 = 80
+K2 = 4
+K3 = 30
 
 y0 = [ np.pi * 0.1, 0]
 y0PID = [ 0,  np.pi /3, 0]
 
-max_time = 3
+max_time = 10
 
 dt = 1e-3
 
@@ -49,7 +49,7 @@ def ProotlocusPlot():
     plt.title("Root Locus diagram, K=" + str(K1))
 
     plt.show()
-#ProotlocusPlot()
+ProotlocusPlot()
 
 def PDrootlocusPlot():
     G = control.TransferFunction(L, (L, K2 , -9.8 + K1))
@@ -60,7 +60,7 @@ def PDrootlocusPlot():
     plt.show()
     
 
-#PDrootlocusPlot()
+PDrootlocusPlot()
 
 def PIDrootlocusPlot():
     G = control.TransferFunction((L,0), (L, K2 , -9.8 + K1, K3))
@@ -68,7 +68,7 @@ def PIDrootlocusPlot():
     plt.title("Root Locus diagram, K1=" + str(K1) +", K2= " +str(K2)+ ", and K3="+ str(K3))
     plt.show()
 
-PIDrootlocusPlot()
+#PIDrootlocusPlot()
 
 
 
