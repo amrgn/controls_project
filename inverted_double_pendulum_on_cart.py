@@ -2,6 +2,7 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from matplotlib import animation
 
 import gym
 import gym_inverted_pend
@@ -34,10 +35,10 @@ def double_pend(y, t, K1, K2, K3, K4, g, R):
 # desired roots of the polynomial in the denominator of the response function. COMPLEX ROOTS MUST OCCUR IN CONJUGATE PAIRS
 # s^4 + a_3 s^3 + a_2 s^2 + a_1 s + a_0 = (s - alpha_1)(s - alpha_2)(s - alpha_3)(s - alpha_4)
 
-alpha_1 = -2
-alpha_2 = -3
-alpha_3 = -4
-alpha_4 = -6
+alpha_1 = -1
+alpha_2 = -2
+alpha_3 = -2.5
+alpha_4 = -3
 
 #a_0 through a_3 obtained by Vieta's formula
 a_0 = alpha_1 * alpha_2 * alpha_3 * alpha_4
@@ -50,6 +51,7 @@ a_3 = -(alpha_1 + alpha_2 + alpha_3 + alpha_4)
 # solving for K1, K2, K3, K4 gives
 
 K1 = np.real(-a_2 * R - 4 * g)
+print(K1)
 K2 = np.real(-a_3 * R)
 K3 = np.real(a_0 * (R ** 2) / (2 * g) - K1 - 1)
 K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
@@ -63,17 +65,13 @@ K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
 # note that the double pendulum is especially sensitive to initial conditions,
 # and the nonlinear effects can take over fast, causing a bad control model.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-y0 = [-0.1, 0, 0.3, 0.0]
-=======
-y0 = [0.1, 0, 0.3, 0.0]
->>>>>>> 2a0d7ac6140ba4c23adb9ea5a30d20ab7cf0b523
-=======
-y0 = [-0.15, 0, 0.1, 0.2]
->>>>>>> 0102c3821ed8f1852c2314fa6e1c86e7f02e881d
+y0 = [0.1, 0.1, -0.1, -0.2]
 
-t = np.linspace(0,15,10000)
+max_time = 2.5
+
+dt = 1e-3
+
+t = np.linspace(0, max_time, int(max_time / dt))
 
 sol = odeint(double_pend, y0, t, args=(K1,K2,K3,K4,g,R))
 
@@ -124,14 +122,40 @@ plt.grid()
 
 plt.show()
 
+
+def save_frames_as_gif(frames, path='./', filename='gym.gif', xmax= 5):
+
+    #Mess with this to change frame size
+    fig = plt.figure(figsize=(frames[0].shape[1] / 72.0, frames[0].shape[0] / 72.0), dpi=72)
+
+    patch = plt.imshow(frames[0])
+    plt.axis("off")
+    #plt.xticks(np.linspace(-xmax, xmax, 600))
+    #x.set(xlim = (-xmax,xmax), ylim = None )
+
+    def animate(i):
+        patch.set_data(frames[18*i])
+
+    anim = animation.FuncAnimation(plt.gcf(), animate, frames = int(len(frames)/18), interval=1)
+    
+    #print(1/dt)
+
+    anim.save(path + filename, writer='Pillow', fps=1000)
+
+
+
+frames = []
 env = gym.make('double-inverted-pend-v0')
+xmax = max(5, np.max(np.abs(np.abs(pos))))
+xmax = min(15,xmax)
+env.set_x_max(xmax)
 env.reset()
 for i in range(len(sol.T[0])):
-    env.render()
+    frames.append(env.render(mode="rgb_array"))
     #time.sleep(0.1)
     env.set_theta(sol.T[0][i])
     env.set_theta2(sol.T[2][i])
     env.set_x(pos[i])
     #print("i")
 env.close()
-env.render()
+save_frames_as_gif(frames, filename="PDDoublePend.gif", xmax= xmax)

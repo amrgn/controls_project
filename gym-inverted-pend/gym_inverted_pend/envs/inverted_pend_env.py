@@ -3,6 +3,7 @@ import gym
 from gym import spaces, logger
 from gym.utils import seeding
 import numpy as np
+from matplotlib import animation
 
 
 
@@ -159,18 +160,21 @@ class InvertedPend(gym.Env):
         return np.array(self.state)
 
     def render(self, mode='human'):
-        screen_width = 1800
-        screen_height = 1200
+        screen_width = 600
+        screen_height = 400
 
         world_width = self.x_max * 2
+
         scale = screen_width/world_width
         carty = 100  # TOP OF CART
-        polewidth = 10.0
-        polelen = scale * (2 * self.length)
-        cartwidth = 50.0
-        cartheight = 30.0
+        polewidth = scale * (0.25)* self.length
+        polelen = scale * (self.length)
+       
+        cartwidth = scale * 2* self.length
+        cartheight = scale * 0.5 * self.length
 
         if self.viewer is None:
+            #print(self.length)
             from gym.envs.classic_control import rendering
             self.viewer = rendering.Viewer(screen_width, screen_height)
             l, r, t, b = -cartwidth / 2, cartwidth / 2, cartheight / 2, -cartheight / 2

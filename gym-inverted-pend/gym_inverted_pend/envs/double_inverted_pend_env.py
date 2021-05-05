@@ -6,6 +6,7 @@ import numpy as np
 
 
 
+
 class DoubleInvertedPend(gym.Env):
     """
     Description:
@@ -97,6 +98,12 @@ class DoubleInvertedPend(gym.Env):
         
     def set_x(self, x):
         self.state[0] = x
+    
+    def set_length(self, length):
+        self.length = length
+    
+    def set_x_max(self, xmax):
+        self.x_max= xmax
 
     def step(self, action):
         err_msg = "%r (%s) invalid" % (action, type(action))
