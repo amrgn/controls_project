@@ -56,6 +56,8 @@ K2 = np.real(-a_3 * R)
 K3 = np.real(a_0 * (R ** 2) / (2 * g) - K1 - 1)
 K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
 
+print('K1 = ', K1, 'K2 = ', K2, 'K3 = ', K3, 'K4 = ', K4)
+
 
 #K1 = 0
 #K2 = 0
@@ -67,11 +69,13 @@ K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
 
 y0 = [0.1, 0.1, -0.1, -0.2]
 
+
 max_time = 2.5
 
 dt = 1e-3
 
 t = np.linspace(0, max_time, int(max_time / dt))
+
 
 sol = odeint(double_pend, y0, t, args=(K1,K2,K3,K4,g,R))
 
@@ -89,12 +93,9 @@ for idx in range(1, len(t)):
     vel[idx] = vel[idx - 1] + accel[idx - 1] * dt
     pos[idx] = pos[idx - 1] + vel[idx - 1] * dt
 
-plt.plot(t, sol.T[0], 'b', label=r'$\theta_1(t)$')
-plt.plot(t, sol.T[1], 'm', label=r'$\omega_1(t)$')
 
-plt.plot(t, sol.T[2], 'g', label=r'$\theta_2(t)$')
-plt.plot(t, sol.T[3], 'r', label=r'$\omega_2(t)$')
 
+<<<<<<< HEAD
 plt.legend(loc='best')
 
 plt.xlabel('t')
@@ -111,14 +112,29 @@ plt.show()
 plt.plot(t, pos, 'b', label = 'position(t)')
 plt.plot(t, accel, 'r', label = 'accel(t)')
 plt.plot(t, vel, 'g', label = 'velocity(t)')
+=======
+fig, axs = plt.subplots(2)
 
-plt.legend(loc='best')
+axs[0].plot(t, sol.T[0], 'b', label=r'$\theta_1(t)$')
+axs[0].plot(t, sol.T[1], 'm', label=r'$\omega_1(t)$')
 
-plt.xlabel('t')
+axs[0].plot(t, sol.T[2], 'g', label=r'$\theta_2(t)$')
+axs[0].plot(t, sol.T[3], 'r', label=r'$\omega_2(t)$')
+>>>>>>> d0d5a79d19a9e5af08c3fb918091e9a5d12bf5e2
 
-plt.ylabel('rad (or rad/s)')
+axs[0].legend(loc='best')
+axs[0].set_title(r'$\theta$ and $\omega$ as functions of time')
+axs[0].set(xlabel='t', ylabel='rad (or rad/s)')
 
-plt.grid()
+axs[1].grid()
+
+axs[1].plot(sol.T[0],sol.T[1],label=r'$\omega_1(t)$ against $\theta_1(t)$')
+axs[1].plot(sol.T[2],sol.T[3],label=r'$\omega_2(t)$ against $\theta_2(t)$')
+axs[1].set_title(r'Dynamical plot of $\omega$ against $\theta$')
+axs[1].set(xlabel=r'$\theta_1(t)$ or $\theta_2(t)$', ylabel=r'$\omega_1(t)$ or $\omega_2(t)$')
+axs[1].legend(loc='best')
+
+axs[1].grid()
 
 plt.show()
 
