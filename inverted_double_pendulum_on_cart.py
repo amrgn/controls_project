@@ -2,7 +2,6 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from matplotlib import animation
 
 import gym
 import gym_inverted_pend
@@ -51,7 +50,6 @@ a_3 = -(alpha_1 + alpha_2 + alpha_3 + alpha_4)
 # solving for K1, K2, K3, K4 gives
 
 K1 = np.real(-a_2 * R - 4 * g)
-print(K1)
 K2 = np.real(-a_3 * R)
 K3 = np.real(a_0 * (R ** 2) / (2 * g) - K1 - 1)
 K4 = np.real(a_1 * (R ** 2) / (2 * g) - K2)
@@ -67,10 +65,9 @@ print('K1 = ', K1, 'K2 = ', K2, 'K3 = ', K3, 'K4 = ', K4)
 # note that the double pendulum is especially sensitive to initial conditions,
 # and the nonlinear effects can take over fast, causing a bad control model.
 
-y0 = [0.1, 0.1, -0.1, -0.2]
+y0 = [0, 0, 0.15 * np.pi, 0]
 
-
-max_time = 2.5
+max_time = 10
 
 dt = 1e-3
 
@@ -95,11 +92,14 @@ for idx in range(1, len(t)):
 
 
 
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> a05b020a0404ec84af9d068de5a3e771ccb9957a
 fig, axs = plt.subplots(2)
 
 axs[0].plot(t, sol.T[0], 'b', label=r'$\theta_1(t)$')
@@ -124,40 +124,14 @@ axs[1].grid()
 
 plt.show()
 
-
-def save_frames_as_gif(frames, path='./', filename='gym.gif', xmax= 5):
-
-    #Mess with this to change frame size
-    fig = plt.figure(figsize=(frames[0].shape[1] / 72.0, frames[0].shape[0] / 72.0), dpi=72)
-
-    patch = plt.imshow(frames[0])
-    plt.axis("off")
-    #plt.xticks(np.linspace(-xmax, xmax, 600))
-    #x.set(xlim = (-xmax,xmax), ylim = None )
-
-    def animate(i):
-        patch.set_data(frames[18*i])
-
-    anim = animation.FuncAnimation(plt.gcf(), animate, frames = int(len(frames)/18), interval=1)
-    
-    #print(1/dt)
-
-    anim.save(path + filename, writer='Pillow', fps=1000)
-
-
-
-frames = []
 env = gym.make('double-inverted-pend-v0')
-xmax = max(5, np.max(np.abs(np.abs(pos))))
-xmax = min(15,xmax)
-env.set_x_max(xmax)
 env.reset()
 for i in range(len(sol.T[0])):
-    frames.append(env.render(mode="rgb_array"))
+    env.render()
     #time.sleep(0.1)
     env.set_theta(sol.T[0][i])
     env.set_theta2(sol.T[2][i])
     env.set_x(pos[i])
     #print("i")
 env.close()
-save_frames_as_gif(frames, filename="PDDoublePend.gif", xmax= xmax)
+env.render()
