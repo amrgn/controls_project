@@ -2,6 +2,7 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from matplotlib import animation
 
 import gym
 import gym_inverted_pend
@@ -67,7 +68,7 @@ print('K1 = ', K1, 'K2 = ', K2, 'K3 = ', K3, 'K4 = ', K4)
 
 y0 = [0, 0, 0.15 * np.pi, 0]
 
-max_time = 10
+max_time = 5
 
 dt = 1e-3
 
@@ -142,7 +143,8 @@ env = gym.make('double-inverted-pend-v0')
 env.reset()
 frames =[]
 for i in range(len(sol.T[0])):
-    frames.append(env.render(mode="rgb_array"))
+    #frames.append(env.render(mode="rgb_array"))
+    env.render()
     #time.sleep(0.1)
     env.set_theta(sol.T[0][i])
     env.set_theta2(sol.T[2][i])

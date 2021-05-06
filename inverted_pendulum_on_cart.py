@@ -27,7 +27,7 @@ def pendPID(y, t, K1, K2, K3, L = 0.5, g = 9.8):
 
 K1 = 50
 K2 = 4
-K3 = 30
+K3 = 20
 
 y0 = [ np.pi * 0.1, 0]
 y0PID = [ 0,  np.pi /3, 0]
@@ -49,7 +49,7 @@ def ProotlocusPlot():
     plt.title("Root Locus diagram, K=" + str(K1))
 
     plt.show()
-ProotlocusPlot()
+#ProotlocusPlot()
 
 def PDrootlocusPlot():
     G = control.TransferFunction(L, (L, K2 , -9.8 + K1))
@@ -60,7 +60,7 @@ def PDrootlocusPlot():
     plt.show()
     
 
-PDrootlocusPlot()
+#PDrootlocusPlot()
 
 def PIDrootlocusPlot():
     G = control.TransferFunction((L,0), (L, K2 , -9.8 + K1, K3))
@@ -68,7 +68,7 @@ def PIDrootlocusPlot():
     plt.title("Root Locus diagram, K1=" + str(K1) +", K2= " +str(K2)+ ", and K3="+ str(K3))
     plt.show()
 
-#PIDrootlocusPlot()
+PIDrootlocusPlot()
 
 
 
@@ -168,8 +168,8 @@ def PlotPID():
     frames = []
 
     for i in range(len(solPID.T[0])):
-        frames.append(env.render(mode="rgb_array"))
-        
+        #frames.append(env.render(mode="rgb_array"))
+        env.render()
         env.set_theta(solPID.T[1][i])
         env.set_x(pos[i])
         #print("i")
@@ -177,7 +177,7 @@ def PlotPID():
     env.close()
 
     #print(frames)
-    save_frames_as_gif(frames, filename="PID-PIover3.gif", xmax= xmax)
+    #save_frames_as_gif(frames, filename="PID-PIover3.gif", xmax= xmax)
     
     
     
@@ -215,13 +215,14 @@ def PlotPD():
     env.set_length(L)
     frames =[]
     for i in range(len(sol.T[0])):
-        frames.append(env.render(mode="rgb_array"))
+        #frames.append(env.render(mode="rgb_array"))
+        env.render()
         #time.sleep(0.1)
         env.set_theta(sol.T[0][i])
         env.set_x(pos[i])
         #print("i")
     env.close()
-    save_frames_as_gif(frames, filename="PD-K1<G.gif")
+    #save_frames_as_gif(frames, filename="PD-K1<G.gif")
 
 
 #PlotPD()
